@@ -19,10 +19,14 @@ public enum ApplicationUserRole {
         this.permissions = permissions;
     }
 
-    public Set<ApplicationUserPermission> getPermissions() {
+    private Set<ApplicationUserPermission> getPermissions() {
         return permissions;
     }
 
+    /*
+    Builds and returns a set that includes a role and all associated permissions
+    a.k.a authorities
+     */
     public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
         Set<SimpleGrantedAuthority> permissions = getPermissions().stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
