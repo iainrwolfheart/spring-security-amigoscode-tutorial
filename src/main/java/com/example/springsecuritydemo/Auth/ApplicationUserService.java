@@ -1,5 +1,7 @@
 package com.example.springsecuritydemo.Auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +12,12 @@ public class ApplicationUserService implements UserDetailsService {
 
     private final ApplicationUserDao applicationUserDao;
 
-    public ApplicationUserService(ApplicationUserDao applicationUserDao) {
+    /*
+    @Qualifier annotation is useful when there is more than one implementation, but
+    in this case is not necessary
+     */
+    @Autowired
+    public ApplicationUserService(@Qualifier("fake") ApplicationUserDao applicationUserDao) {
         this.applicationUserDao = applicationUserDao;
     }
 
