@@ -13,14 +13,18 @@ public class ApplicationUserService implements UserDetailsService {
     private final ApplicationUserDao applicationUserDao;
 
     /*
-    @Qualifier annotation is useful when there is more than one implementation, but
-    in this case is not necessary
+    @Qualifier annotation is useful when there is more than one repository implementation,
+    but in this case is not necessary
      */
     @Autowired
     public ApplicationUserService(@Qualifier("fake") ApplicationUserDao applicationUserDao) {
         this.applicationUserDao = applicationUserDao;
     }
 
+    /*
+    This works because the returned type of ApplicationUser implements the
+    UserDetails interface
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return applicationUserDao.selectApplicationUserByUsername(username)
