@@ -1,4 +1,4 @@
-package com.example.springsecuritydemo.Auth;
+package com.example.springsecuritydemo.auth;
 
 import java.util.Optional;
 
