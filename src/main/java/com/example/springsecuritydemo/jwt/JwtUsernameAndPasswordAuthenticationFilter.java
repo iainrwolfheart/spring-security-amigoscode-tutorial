@@ -1,4 +1,4 @@
-package jwt;
+package com.example.springsecuritydemo.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,16 +20,16 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     private final AuthenticationManager authenticationManager;
     private final JwtConfig jwtConfig;
-    private final SecretKey secretKey;
+//    private final SecretKey secretKey;
 
     public JwtUsernameAndPasswordAuthenticationFilter(
             AuthenticationManager authenticationManager,
-            JwtConfig jwtConfig,
-            SecretKey secretKey
+            JwtConfig jwtConfig
+//            SecretKey secretKey
             ) {
         this.authenticationManager = authenticationManager;
         this.jwtConfig = jwtConfig;
-        this.secretKey = secretKey;
+//        this.secretKey = secretKey;
     }
 
     /*
@@ -70,7 +69,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
-                .signWith(secretKey)
+                .signWith(jwtConfig.getSecretKeyForUse())
                 .compact();
 
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);

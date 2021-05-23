@@ -1,4 +1,4 @@
-package jwt;
+package com.example.springsecuritydemo.jwt;
 
 public class UsernameAndPasswordAuthenticationRequest {
 

@@ -1,9 +1,13 @@
-package jwt;
+package com.example.springsecuritydemo.jwt;
 
 import com.google.common.net.HttpHeaders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+
+import javax.crypto.SecretKey;
 
 @Component
 @Configuration
@@ -43,5 +47,10 @@ public class JwtConfig {
 
     public String getAuthorizationHeader() {
         return HttpHeaders.AUTHORIZATION;
+    }
+
+    @Bean
+    public SecretKey getSecretKeyForUse() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 }
